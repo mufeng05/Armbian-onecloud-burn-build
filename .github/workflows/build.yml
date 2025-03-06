@@ -19,6 +19,7 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
+    container: debian:latest
     outputs:
       env: ${{ steps.get.outputs.env }}
     steps:
@@ -192,6 +193,7 @@ jobs:
     name: Build ${{ matrix.RELEASE }}-current-${{ matrix.TYPE == 'desktop' && matrix.DESKTOP_ENVIRONMENT || matrix.TYPE }}
     needs: [ prepare, build-kernel ]
     runs-on: ubuntu-latest
+    container: debian:latest
     strategy:
       fail-fast: false
       matrix:
