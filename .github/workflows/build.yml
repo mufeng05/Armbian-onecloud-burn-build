@@ -12,6 +12,9 @@ env:
   ARMBIAN_REPO: armbian/build
   ARMBIAN_REF: main
 
+permissions:
+  contents: write
+
 jobs:
   prepare:
     name: Prepare
