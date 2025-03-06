@@ -111,7 +111,6 @@ jobs:
     name: Build Current
     needs: prepare
     runs-on: ubuntu-latest
-    container: debian:latest
 
     steps:
       - name: Import env
@@ -194,7 +193,6 @@ jobs:
     name: Build ${{ matrix.RELEASE }}-current-${{ matrix.TYPE == 'desktop' && matrix.DESKTOP_ENVIRONMENT || matrix.TYPE }}
     needs: [ prepare, build-kernel ]
     runs-on: ubuntu-latest
-    container: debian:latest
     strategy:
       fail-fast: false
       matrix:
