@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           TIME="$(curl https://api.github.com/repos/${SCRIPT_REPO}/actions/runs/${GITHUB_RUN_ID} | jq -r .created_at)"
-          TAG="ci-$(date -d "${TIME}" -u +'%Y%m%d-%H%M%S-%Z')"
+          TAG="ci-$(TZ='Asia/Shanghai' date -d "${TIME}" -u +'%Y%m%d-%H%M%S-%Z')"
 
           SCRIPT_SHA=$(curl https://api.github.com/repos/${SCRIPT_REPO}/commits/${SCRIPT_REF} | jq -r .sha)
           UBOOT_TAG=$(curl https://api.github.com/repos/${UBOOT_REPO}/releases/${UBOOT_RELEASE} | jq -r .tag_name)
@@ -137,9 +137,6 @@ jobs:
       - name: Initialization environment
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sudo rm -rf /etc/apt/sources.list.d /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php 2>/dev/null
-          sudo -E apt -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
-          [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
           sudo -E apt update -y
           sudo -E apt full-upgrade -y
           sudo -E apt -y autoremove --purge
@@ -242,9 +239,6 @@ jobs:
       - name: Initialization environment
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sudo rm -rf /etc/apt/sources.list.d /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php 2>/dev/null
-          sudo -E apt -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
-          [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
           sudo -E apt update -y
           sudo -E apt full-upgrade -y
           sudo apt install android-sdk-libsparse-utils
