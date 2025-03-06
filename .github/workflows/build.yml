@@ -241,10 +241,7 @@ jobs:
           sudo timedatectl set-timezone "Asia/Shanghai"
           sudo -E apt update -y
           sudo -E apt full-upgrade -y
-          sudo apt install android-sdk-libsparse-utils
-          ver="v0.3.1"
-          curl -L -o ./AmlImg https://github.com/hzyitc/AmlImg/releases/download/$ver/AmlImg_${ver}_linux_amd64
-          chmod +x ./AmlImg
+          sudo -E apt install android-sdk-libsparse-utils
           sudo -E apt -y autoremove --purge
           sudo -E systemctl daemon-reload
           sudo -E apt clean && sudo -E apt autoclean
@@ -280,6 +277,12 @@ jobs:
               EXPERT=yes \
               COMPRESS_OUTPUTIMAGE=img
           sudo chown $(id -u):$(id -g) -R output/
+
+      - name: Install AmlImg
+        run: |
+          ver="v0.3.1"
+          curl -L -o ./AmlImg https://github.com/hzyitc/AmlImg/releases/download/$ver/AmlImg_${ver}_linux_amd64
+          chmod +x ./AmlImg
 
       - name: Download and unpack the latest u-boot
         run: |
