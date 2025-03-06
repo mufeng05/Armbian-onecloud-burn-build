@@ -31,7 +31,7 @@ jobs:
           ARMBIAN_SHA=$(curl https://api.github.com/repos/${ARMBIAN_REPO}/commits/${ARMBIAN_REF} | jq -r .sha)
 
           echo "Cloning Armbian repository..."
-          git clone --depth=0 https://github.com/armbian/os os
+          git clone https://github.com/armbian/os os
 
           ARMBIAN_VERSION=$(cat os/stable.json | jq '.version' | sed "s/\"//g")
 
