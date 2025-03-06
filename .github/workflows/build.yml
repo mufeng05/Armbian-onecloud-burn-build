@@ -19,9 +19,9 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
-    container: debian:latest
     outputs:
       env: ${{ steps.get.outputs.env }}
+
     steps:
       - id: get
         name: Get repositories and Armbian information
@@ -111,6 +111,7 @@ jobs:
     name: Build Current
     needs: prepare
     runs-on: ubuntu-latest
+    container: debian:latest
 
     steps:
       - name: Import env
