@@ -151,7 +151,8 @@ jobs:
               ALLOW_ROOT=yes \
               BOARD=onecloud \
               BRANCH=current \
-              EXPERT=yes
+              EXPERT=yes \
+              KERNEL_BTF=yes
           sudo chown $(id -u):$(id -g) -R output/
         
       - name: Hash kernel
