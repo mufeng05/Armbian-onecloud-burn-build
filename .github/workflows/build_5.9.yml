@@ -144,6 +144,7 @@ jobs:
 
       - name: Build
         run: |
+          sed -i 's/if \[\[ \"\$\{decision\}\" == \"not_yet_decided\" \]\]; then/decision="full"\n&/' ./lib/functions/compilation/kernel-git-oras.sh
           sed -i 's/declare -g KERNEL_MAJOR_MINOR="6.12"/declare -g KERNEL_MAJOR_MINOR="5.9"/' ./config/sources/families/include/meson_common.inc
           sudo --preserve-env \
             ./compile.sh kernel \
