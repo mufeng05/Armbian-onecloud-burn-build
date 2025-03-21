@@ -1,4 +1,4 @@
-name: Build Armbian OneCloud Burn
+name: Build Armbian OneCloud Burn 5.9
 
 on:
   workflow_dispatch:
@@ -138,11 +138,11 @@ jobs:
       - name: Initialization environment
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sudo -E apt update -y
-          sudo -E apt full-upgrade -y
-          sudo -E apt -y autoremove --purge
-          sudo -E systemctl daemon-reload
-          sudo -E apt clean && sudo -E apt autoclean
+          # sudo -E apt update -y
+          # sudo -E apt full-upgrade -y
+          # sudo -E apt -y autoremove --purge
+          # sudo -E systemctl daemon-reload
+          # sudo -E apt clean && sudo -E apt autoclean
           df -Th
 
       - name: Checkout
@@ -154,7 +154,9 @@ jobs:
       - name: Build
         run: |
           sudo --preserve-env \
-            ./compile.sh kernel \
+            ./compile.sh \
+              KERNEL_ONLY=yes \
+              KERNEL_CONFIGURE=no \
               REVISION="${{ env.ARMBIAN_VERSION }}" \
               ALLOW_ROOT=yes \
               BOARD=onecloud \
@@ -201,8 +203,8 @@ jobs:
           # - jammy # Ubuntu 22.04 LTS
           # - lunar # Ubuntu 23.04
           # - buster # Debian 10
-          # - bullseye # Debian 11
-          - bookworm # Debian 12
+          - bullseye # Debian 11
+          # - bookworm # Debian 12
           # - sid # Debian unstable
         TYPE:
           - minimal
@@ -241,11 +243,11 @@ jobs:
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           sudo -E apt update -y
-          sudo -E apt full-upgrade -y
+          # sudo -E apt full-upgrade -y
           sudo -E apt install android-sdk-libsparse-utils
-          sudo -E apt -y autoremove --purge
-          sudo -E systemctl daemon-reload
-          sudo -E apt clean && sudo -E apt autoclean
+          # sudo -E apt -y autoremove --purge
+          # sudo -E systemctl daemon-reload
+          # sudo -E apt clean && sudo -E apt autoclean
           df -Th
 
       - name: Checkout
@@ -263,7 +265,8 @@ jobs:
       - name: Build
         run: |
           sudo --preserve-env \
-            ./compile.sh build \
+            ./compile.sh \
+              KERNEL_ONLY=no \
               REVISION="${{ env.ARMBIAN_VERSION }}" \
               ALLOW_ROOT=yes \
               BOARD=onecloud \
